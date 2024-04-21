@@ -1,11 +1,21 @@
-type RoomData = {
-    roomAdmin: string;
-    players: string[];
-};
-
-type EnterRoomData = {
+type User = {
     username: string;
     roomCode: string | undefined;
+};
+
+type RoomData = {
+    roomAdmin: string;
+    turn: number | undefined;
+    gameStatus: "LOBBY" | "GAME" | "LEADERBOARD";
+    roomCode: string;
+    players: Player[];
+};
+
+type Player = {
+    color: string;
+    username: string;
+    ready: boolean;
+    score: number;
 };
 
 type Draw = {
@@ -26,42 +36,61 @@ type DrawLine = {
 type MessageData = {
     username: string;
     message: string;
-    joinLeaveMessage: boolean | undefined;
+    popup: boolean | undefined;
+    highlight: boolean | undefined;
 };
 
 // contexts
-type UserStateType = EnterRoomData;
+type UserStateType = User;
 
-type UserActionType = {
-    type: "SET";
-    payload: EnterRoomData;
-};
+type UserActionType =
+    | {
+          type: "SET";
+          payload: User;
+      }
+    | {
+          type: "ADD_ROOMCODE";
+          payload: string;
+      };
 
 type RoomDataStateType = RoomData | undefined;
 
 type RoomDataActionType =
     | {
           type: "SET";
-          payload: RoomData;
+          payload: RoomData | undefined;
       }
     | {
           type: "REMOVE_PLAYER";
           payload: string;
-      } | {
-        type: "ADD_PLAYER";
-        payload: string;
+      }
+    | {
+          type: "ADD_PLAYER";
+          payload: Player;
       };
 
 type MessageStateType = MessageData[];
 
-type MessageActionType = {
-    type: "ADD";
-    payload: MessageData;
-} | {
-    type: "RESET";
-};
+type MessageActionType =
+    | {
+          type: "ADD";
+          payload: MessageData;
+      }
+    | {
+          type: "RESET";
+      };
 
 type ErrorActionType =
+    | {
+          type: "SET";
+          payload: string;
+      }
+    | {
+          type: "RESET";
+      };
+
+
+type WordActionType =
     | {
           type: "SET";
           payload: string;

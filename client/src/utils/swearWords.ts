@@ -1,5 +1,3 @@
-// const swearWords = ;
-
 const swearWords = new Set([
     "arse",
     "arsehead",
@@ -62,7 +60,7 @@ export const bleepSwearWords = (str: string): string => {
     for (let index = 0; index < words.length; index++) {
         const word = words[index];
         if (swearWords.has(word)) {
-            res += " ***";
+            res += " " + "*".repeat(word.length);
         } else {
             res += " " + word;
         }

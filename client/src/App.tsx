@@ -8,41 +8,67 @@ import { useErrorContext } from "./hooks/useErrorContext";
 import Room from "./pages/Room";
 import JoinCreateRoom from "./pages/JoinCreateRoom";
 import Home from "./pages/Home";
+import { useWordContext } from "./hooks/useWordContext";
 
 function App() {
     const { state: userState, dispatch: userDispatch } = useUserContext();
     const { dispatch: dispatchMessage } = useMessageContext();
     const { dispatch: dispatchRoomData } = useRoomDataContext();
     const { dispatch: dispatchError } = useErrorContext();
+    const { dispatch: dispatchWord } = useWordContext();
 
-    const { socketProcessRoomOn, socketProcessRoomOff } = useSocket();
+    const { socket, socketProcessRoomOn, socketProcessRoomOff } = useSocket();
 
+    // handling, roomData, join, leave, error, messages
     useEffect(() => {
         socketProcessRoomOn(
             userState,
             userDispatch,
             dispatchMessage,
             dispatchRoomData,
-            dispatchError
+            dispatchError,
+            dispatchWord
         );
         return socketProcessRoomOff;
-    }, [socketProcessRoomOn, socketProcessRoomOff]);
+    }, [userState.username, socketProcessRoomOn, socketProcessRoomOff]);
+
+    // handling tab close
+    useEffect(() => {
+        function handleTabClose(e: BeforeUnloadEvent) {
+            return socket.emit("leaving-room", {
+                username: userState.username,
+                roomCode: userState.roomCode,
+            });
+        }
+        window.addEventListener("beforeunload", handleTabClose);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleTabClose);
+        };
+    });
 
     return (
-        <div className="container m-auto p-2 w-[1400px]">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route
-                        path="/join-create-room"
-                        element={<JoinCreateRoom />}
-                    />
-                    <Route path="/room" element={<Room />} />
+        <>
+            <nav className=" p-3">
+                <div className="container m-auto px-2 w-[1400px] select-none">
+                    <span className="text-3xl">GuessTheDrawing</span>
+                </div>
+            </nav>
+            <div className="container m-auto p-2 w-[1400px] select-none h-[90v flex justify-center items-center">
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route
+                            path="/join-create-room"
+                            element={<JoinCreateRoom />}
+                        />
+                        <Route path="/room" element={<Room />} />
 
-                    <Route path="*" element={<Navigate to={"/"} />} />
-                </Routes>
-            </BrowserRouter>
-        </div>
+                        <Route path="*" element={<Navigate to={"/"} />} />
+                    </Routes>
+                </BrowserRouter>
+            </div>
+        </>
     );
 }
 

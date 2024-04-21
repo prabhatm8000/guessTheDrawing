@@ -11,7 +11,7 @@ export const RoomDataContext = createContext<{
 export const roomDataReducer = (
     state: RoomDataStateType,
     action: RoomDataActionType
-) => {
+): RoomData | undefined => {
     switch (action.type) {
         case "SET":
             return action.payload;
@@ -20,8 +20,11 @@ export const roomDataReducer = (
                 return state;
             }
             return {
-                roomAdmin: state.roomAdmin,
+                gameStatus: state.gameStatus,
                 players: [...state.players, action.payload],
+                roomAdmin: state.roomAdmin,
+                roomCode: state.roomCode,
+                turn: state.turn,
             };
 
         case "REMOVE_PLAYER":
@@ -29,10 +32,13 @@ export const roomDataReducer = (
                 return state;
             }
             return {
-                roomAdmin: state.roomAdmin,
+                gameStatus: state.gameStatus,
                 players: state.players.filter(
-                    (data) => data !== action.payload
+                    (data) => data.username !== action.payload
                 ),
+                roomAdmin: state.roomAdmin,
+                roomCode: state.roomCode,
+                turn: state.turn,
             };
         default:
             return state;

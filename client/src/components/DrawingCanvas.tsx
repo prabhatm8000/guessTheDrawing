@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../hooks/useUserContext";
 import { useDraw } from "../hooks/useDraw";
@@ -6,14 +5,15 @@ import { ChromePicker } from "react-color";
 import { CgClose, CgColorPicker } from "react-icons/cg";
 import { drawLine } from "../utils/drawLine";
 import { useSocket } from "../hooks/useSocket";
+import { useRoomDataContext } from "../hooks/useRoomDataContext";
 
 const DrawingCanvas = () => {
     const { socket } = useSocket();
     const { state: userState } = useUserContext();
+    const { state: roomDataState } = useRoomDataContext();
 
-    const navigate = useNavigate();
     const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
-    const [lineColor, setLineColor] = useState<string>("#000");
+    const [lineColor, setLineColor] = useState<string>("#fff");
 
     const { canvasRef, onMouseDown, clear } = useDraw(createLine);
 
@@ -37,13 +37,20 @@ const DrawingCanvas = () => {
     }, [canvasRef, userState]);
 
     function createLine({ prevPos, currentPos, ctx }: Draw) {
-        socket.emit("draw-line", {
-            prevPos,
-            currentPos,
-            lineColor,
-            roomCode: userState.roomCode,
-        });
-        drawLine({ prevPos, currentPos, ctx, lineColor });
+        if (
+            roomDataState &&
+            roomDataState.turn !== undefined &&
+            roomDataState.players[roomDataState.turn].username ===
+                userState.username
+        ) {
+            socket.emit("draw-line", {
+                prevPos,
+                currentPos,
+                lineColor,
+                roomCode: userState.roomCode,
+            });
+            drawLine({ prevPos, currentPos, ctx, lineColor });
+        }
     }
 
     const handleClearBtn = () => {
@@ -54,10 +61,11 @@ const DrawingCanvas = () => {
         <div className="relative">
             <canvas
                 onMouseDown={onMouseDown}
+                onTouchStart={onMouseDown}
                 ref={canvasRef}
-                height={800}
+                height={640}
                 width={800}
-                className="border border-black rounded-lg"
+                className="border border-white rounded-lg"
             />
 
             {showColorPicker && (
@@ -69,25 +77,32 @@ const DrawingCanvas = () => {
                 />
             )}
 
-            <button
-                className={`absolute bottom-0 right-0 text-xl p-2 m-2 rounded-full border-2 border-black ${
-                    showColorPicker
-                        ? "bg-white text-black"
-                        : "bg-black text-white"
-                } transition-colors delay-50 duration-200`}
-                type="button"
-                onClick={() => setShowColorPicker((prev) => !prev)}
-            >
-                {showColorPicker ? <CgClose /> : <CgColorPicker />}
-            </button>
+            {roomDataState &&
+                roomDataState.turn !== undefined &&
+                roomDataState.players[roomDataState.turn].username ===
+                    userState.username && (
+                    <>
+                        <button
+                            className={`absolute bottom-0 right-0 text-xl p-2 m-2 rounded-full border-2 border-white ${
+                                showColorPicker
+                                    ? "bg-white text-black"
+                                    : "bg-black text-white"
+                            } transition-colors delay-50 duration-200`}
+                            type="button"
+                            onClick={() => setShowColorPicker((prev) => !prev)}
+                        >
+                            {showColorPicker ? <CgClose /> : <CgColorPicker />}
+                        </button>
 
-            <button
-                className="absolute bottom-0 px-2 py-1 m-2 rounded-md border border-black bg-white text-black text-sm font-semibold"
-                type="button"
-                onClick={handleClearBtn}
-            >
-                Clear Canvas
-            </button>
+                        <button
+                            className="absolute bottom-0 px-2 py-1 m-2 rounded-md border border-white bg-white text-black text-sm font-semibold"
+                            type="button"
+                            onClick={handleClearBtn}
+                        >
+                            Clear Canvas
+                        </button>
+                    </>
+                )}
         </div>
     );
 };

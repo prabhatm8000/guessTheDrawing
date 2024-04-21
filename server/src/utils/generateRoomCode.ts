@@ -40,7 +40,7 @@ const charSet = [
 export const generateRoomCode = (roomCodeLen: number = 6): string => {
     let code = "";
     for (let index = 0; index < roomCodeLen; index++) {
-        const randomPos = Math.round(Math.random() * (charSet.length - 1));
+        const randomPos = Math.floor(Math.random() * (charSet.length - 1));
         code += charSet[randomPos];
     }
     return code;

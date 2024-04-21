@@ -1,19 +1,28 @@
 import { BiSend } from "react-icons/bi";
 import { useMessageContext } from "../hooks/useMessageContext";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useUserContext } from "../hooks/useUserContext";
-import { useSocket } from "../hooks/useSocket";
+import { timerIntervalId, timerTimeoutId, useSocket } from "../hooks/useSocket";
+import { useNavigate } from "react-router-dom";
+import { bleepSwearWords } from "../utils/swearWords";
+import { useRoomDataContext } from "../hooks/useRoomDataContext";
+import { useWordContext } from "../hooks/useWordContext";
 
 const MessageBox = () => {
     const { socket } = useSocket();
-    
-    const { state: userState } = useUserContext();
+    const navigate = useNavigate();
+
+    const { state: userState, dispatch: userDispatch } = useUserContext();
     const { state: messageState, dispatch: dispatchMessage } =
         useMessageContext();
+    const { dispatch: dispatchRoomData } = useRoomDataContext();
+    const { dispatch: dispatchWord } = useWordContext();
 
     const [messageInput, setMessageInput] = useState<string>("");
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // todo -> allow everyone to turn on/off safe chat
+
+    const sendMessage = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const message = messageInput.trim();
         setMessageInput("");
@@ -27,37 +36,51 @@ const MessageBox = () => {
         });
     };
 
-    useEffect(() => {
-        socket.on("message-send", ({ username, message }) => {
-            dispatchMessage({
-                type: "ADD",
-                payload: { username, message, joinLeaveMessage: false },
-            });
-        });
+    const handleLeaveBtn = () => {
+        clearInterval(timerIntervalId);
+        clearTimeout(timerTimeoutId);
 
-        return () => {
-            socket.off("message-send");
-        };
-    }, []);
+        userDispatch({ type: "SET", payload: { username: "", roomCode: "" } });
+        dispatchRoomData({ type: "SET", payload: undefined });
+        dispatchMessage({ type: "RESET" });
+        socket.emit("leaving-room", {
+            username: userState.username,
+            roomCode: userState.roomCode,
+        });
+        dispatchWord({ type: "RESET" });
+        socket.disconnect();
+        navigate("/");
+    };
 
     return (
-        <div className="relative border border-black rounded-md grid grid-rows-[0.5fr_9fr_0.5fr]">
+        <div className="relative border border-white rounded-md grid grid-rows-[0.5fr_9fr_0.5fr]">
             {/* title */}
-            <div className="px-4 py-1 border-b border-black">
+            <div className="px-4 py-1 border-b border-white flex justify-between items-center">
                 <h3 className="text-2xl">Messages</h3>
+                <button
+                    className="text-lg text-black px-2 rounded-md border border-white bg-white hover:bg-black hover:text-white"
+                    onClick={handleLeaveBtn}
+                >
+                    Leave
+                </button>
             </div>
 
             {/* messages */}
-            <div className="m-2 mb-0 border border-black rounded-md h-[770px] overflow-auto">
-                <ul className="flex flex-col gap-1 text-lg">
+            <div className="m-2 mb-0 border border-white rounded-md h-[716px] overflow-auto">
+                <ul className="flex flex-col gap-1 text-lg select-text">
                     {messageState.map((data, index) => {
-                        if (data.joinLeaveMessage) {
+                        if (data.popup) {
                             return (
                                 <li
                                     key={index}
-                                    className="bg-gray-300 px-3 text-center"
+                                    className={`${
+                                        data.highlight
+                                            ? "bg-green-700"
+                                            : "bg-stone-700"
+                                    } px-3 text-center`}
                                 >
-                                    {data.username} {data.message}
+                                    {data.username}{" "}
+                                    {bleepSwearWords(data.message)}
                                 </li>
                             );
                         }
@@ -65,19 +88,31 @@ const MessageBox = () => {
                             return (
                                 <li
                                     key={index}
-                                    className="bg-stone-100 px-3 text-right"
+                                    className={`${
+                                        data.highlight
+                                            ? "bg-green-700"
+                                            : "bg-stone-900"
+                                    } px-3 text-right`}
                                 >
-                                    {data.message}
+                                    <span className="break-all">
+                                        {bleepSwearWords(data.message)}
+                                    </span>
                                 </li>
                             );
                         }
                         return (
                             <li
                                 key={index}
-                                className="flex gap-2 bg-stone-100 px-3"
+                                className={`flex gap-2 ${
+                                    data.highlight
+                                        ? "bg-green-700"
+                                        : "bg-stone-900"
+                                } px-3`}
                             >
                                 <span>{data.username}</span>:
-                                <span>{data.message}</span>
+                                <span className="break-all">
+                                    {bleepSwearWords(data.message)}
+                                </span>
                             </li>
                         );
                     })}
@@ -86,13 +121,13 @@ const MessageBox = () => {
 
             {/* send message form */}
             <form
-                onSubmit={onSubmit}
-                className="flex gap-2 m-2 py-2 px-3 border border-black rounded-md"
+                onSubmit={sendMessage}
+                className="flex gap-2 m-2 py-2 px-3 border border-white rounded-md"
             >
                 <input
                     type="text"
                     placeholder="Message"
-                    className="w-full focus:outline-none"
+                    className="w-full focus:outline-none bg-black text-white"
                     maxLength={300}
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
