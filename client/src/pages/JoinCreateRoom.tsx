@@ -7,6 +7,7 @@ import { useUserContext } from "../hooks/useUserContext";
 import { useMessageContext } from "../hooks/useMessageContext";
 import { useRoomDataContext } from "../hooks/useRoomDataContext";
 import { useAudioFx } from "../hooks/useAudioFx";
+import Loading from "../components/Loading";
 
 const JoinCreateRoom = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const JoinCreateRoom = () => {
     const { state: roomDataState } = useRoomDataContext();
     const { dispatch: dispatchMessage } = useMessageContext();
     const [showEnterRoomForm, setShowEnterRoomForm] = useState<boolean>(true);
+    const [showLoading, setShowLoading] = useState<boolean>(false);
 
     const {
         register,
@@ -30,6 +32,7 @@ const JoinCreateRoom = () => {
     }, [roomDataState]);
 
     const onSubmit = handleSubmit((formData: User) => {
+        setShowLoading(true);
         socket.connect();
         if (showEnterRoomForm && formData.roomCode) {
             socket.emit("join-room", formData);
@@ -54,6 +57,7 @@ const JoinCreateRoom = () => {
     return (
         <div className="h-screen flex flex-col justify-center items-center gap-2">
             <Errors />
+            {showLoading && <Loading />}
             <form
                 onSubmit={onSubmit}
                 className="grid gap-2 px-4 py-2 rounded-md border border-stone-400 w-fit"

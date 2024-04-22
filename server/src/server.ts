@@ -1,11 +1,7 @@
 import http from "http";
+import "dotenv/config";
 import { Server } from "socket.io";
-import {
-    DrawLine,
-    GameData,
-    RandomWord,
-    RoomData,
-} from "./types/typing";
+import { DrawLine, GameData, RandomWord, RoomData } from "./types/typing";
 import { generateRoomCode } from "./utils/generateRoomCode";
 import { getRandomWord } from "./utils/randomWord";
 
@@ -31,7 +27,7 @@ const DEP_IN_SCORE = 20;
 const io = new Server(server, {
     cors: {
         // chnage this to the url of production frontend
-        origin: "*",
+        origin: process.env.CLIENT_URL || "",
     },
 });
 
