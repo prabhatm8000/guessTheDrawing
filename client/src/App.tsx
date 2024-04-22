@@ -35,7 +35,7 @@ function App() {
 
     // handling tab close
     useEffect(() => {
-        function handleTabClose(e: BeforeUnloadEvent) {
+        function handleTabClose() {
             return socket.emit("leaving-room", {
                 username: userState.username,
                 roomCode: userState.roomCode,
