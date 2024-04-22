@@ -7,7 +7,7 @@ const NavBar = () => {
             <div className="container m-auto px-2 w-[1400px] flex justify-between items-center select-none">
                 <Link to={"/"}>
                     <span className="text-4xl font-sketchit">
-                        GuessTheDrawing
+                        guessTheDrawing
                     </span>
                 </Link>
                 <a href="/">

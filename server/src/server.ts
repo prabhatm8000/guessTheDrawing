@@ -3,7 +3,6 @@ import { Server } from "socket.io";
 import {
     DrawLine,
     GameData,
-    Player,
     RandomWord,
     RoomData,
 } from "./types/typing";
