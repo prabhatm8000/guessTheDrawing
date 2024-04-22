@@ -1,15 +1,15 @@
 # guessTheDrawing
 
-guessTheDrawing is an online multiplayer game where players take turns guessing what another player is drawing. It's built with React, Socket.IO and Node.js
+guessTheDrawing is an online multiplayer game where players take turns guessing what another player is drawing. It's built with React, Socket.IO and Node.js.
 
 ## Features
 
--   Real-time multiplayer gameplay
--   Simple and intuitive user interface
--   Players can message/chat wich each other in real-time
--   Messaging has swear-word bleeping
--   Players take turns drawing and guessing
--   Admin can kick player
+-   Real-time multiplayer gameplay.
+-   Simple and intuitive user interface.
+-   Players can message/chat wich each other in real-time.
+-   Messaging has swear-word bleeping.
+-   Players take turns drawing and guessing.
+-   Admin can kick player.
 
 ## Technologies Used
 

@@ -2,7 +2,9 @@ import { Socket, io } from "socket.io-client";
 import * as docuFunc from "../utils/docuFunc";
 import { useAudioFx } from "./useAudioFx";
 
-let socket: Socket = io("http://localhost:3000", { autoConnect: false });
+const SOCKET_URI = import.meta.env.VITE_SOCKET_URI || "";
+
+let socket: Socket = io(SOCKET_URI, { autoConnect: false });
 
 const { setFx, playFx } = useAudioFx();
 
