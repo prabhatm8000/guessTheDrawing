@@ -68,6 +68,35 @@ const socketProcessRoomOn = (
     });
     // #endregion
 
+    // kick
+    socket.on("kicked", ({ playerUsername }: { playerUsername: string }) => {
+        if (playerUsername === userState.username) {
+            dispatchRoomData({ type: "SET", payload: undefined });
+            userDispatch({
+                type: "SET",
+                payload: { username: "", roomCode: "" },
+            });
+            dispatchMessage({ type: "RESET" });
+            dispatchWord({ type: "RESET" });
+
+            return;
+        }
+
+        setFx({ fx: "LEAVE" });
+        playFx();
+
+        dispatchMessage({
+            type: "ADD",
+            payload: {
+                username: playerUsername,
+                message: "got kicked!",
+                popup: true,
+                highlight: false,
+            },
+        });
+        dispatchRoomData({ type: "REMOVE_PLAYER", payload: playerUsername });
+    });
+
     // errors
     socket.on("error", ({ message }: { message: string }) => {
         dispatchError({ type: "SET", payload: message });
@@ -174,6 +203,7 @@ const socketProcessRoomOff = () => {
     socket.off("room-data");
     socket.off("joined-room");
     socket.off("left-room");
+    socket.off("kicked");
     socket.off("error");
     socket.off("message-received");
     socket.off("word");

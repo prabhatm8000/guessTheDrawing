@@ -10,7 +10,7 @@ const MissingPlacesWordBox = () => {
         <div className="grid grid-cols-[2fr_6fr] gap-2">
             <Timer />
 
-            <div className="flex justify-center items-center gap-1 text-3xl uppercase border border-white p-1 rounded-md font-mono">
+            <div className="flex justify-center items-center gap-1 text-3xl uppercase border border-stone-400 p-1 rounded-md font-mono">
                 <div id="word" className="hidden">
                     {word}
                 </div>
@@ -23,7 +23,7 @@ const MissingPlacesWordBox = () => {
                                 return (
                                     <span
                                         key={index}
-                                        className="px-[8px] py-[12px] border-b-2 border-white"
+                                        className="px-[8px] py-[12px] border-b-2 border-stone-400"
                                     ></span>
                                 );
                             } else if (data === " ") {

@@ -24,7 +24,7 @@ const JoinCreateRoom = () => {
     } = useForm<User>();
 
     useEffect(() => {
-        if (roomDataState) {
+        if (roomDataState !== undefined) {
             navigate("/room");
         }
     }, [roomDataState]);
@@ -44,19 +44,19 @@ const JoinCreateRoom = () => {
                 username: formData.username,
                 message: "(You) joined!",
                 popup: true,
-                highlight: false
+                highlight: false,
             },
         });
-        setFx({fx: "JOIN"});
+        setFx({ fx: "JOIN" });
         playFx();
     });
 
     return (
-        <div className="grid grid-flow-row justify-center items-center gap-2">
+        <div className="h-screen flex flex-col justify-center items-center gap-2">
             <Errors />
             <form
                 onSubmit={onSubmit}
-                className="grid gap-2 px-4 py-2 rounded-md border border-white w-fit"
+                className="grid gap-2 px-4 py-2 rounded-md border border-stone-400 w-fit"
                 autoComplete="off"
             >
                 <label htmlFor="username" className="flex flex-col">
@@ -64,7 +64,7 @@ const JoinCreateRoom = () => {
                     <input
                         id="username"
                         type="text"
-                        className="border border-white px-3 py-1 rounded-md focus:outline-none text-xl bg-stone-900"
+                        className="border border-stone-400 px-3 py-1 rounded-md focus:outline-none text-xl bg-stone-900"
                         {...register("username", {
                             required: "This field is required",
                             maxLength: {
@@ -86,7 +86,7 @@ const JoinCreateRoom = () => {
                         <input
                             id="roomCode"
                             type="text"
-                            className="border border-white px-3 py-1 rounded-md focus:outline-none text-xl bg-stone-900"
+                            className="border border-stone-400 px-3 py-1 rounded-md focus:outline-none text-xl bg-stone-900"
                             {...register("roomCode", {
                                 required: "This field is required",
                                 minLength: {
@@ -109,7 +109,7 @@ const JoinCreateRoom = () => {
 
                 <button
                     type="submit"
-                    className="px-3 py-1 my-2 w-fit rounded-md border border-white text-xl font-semibold"
+                    className="px-3 py-1 my-2 w-fit rounded-md border border-stone-400 text-xl font-semibold font-sketchit"
                 >
                     {showEnterRoomForm ? "Join Room" : "Create Room"}
                 </button>

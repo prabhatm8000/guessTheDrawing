@@ -1,6 +1,12 @@
 import http from "http";
 import { Server } from "socket.io";
-import { DrawLine, GameData, RandomWord, RoomData } from "./types/typing";
+import {
+    DrawLine,
+    GameData,
+    Player,
+    RandomWord,
+    RoomData,
+} from "./types/typing";
 import { generateRoomCode } from "./utils/generateRoomCode";
 import { getRandomWord } from "./utils/randomWord";
 
@@ -128,6 +134,9 @@ io.on("connection", (socket) => {
             if (roomData.players.length === 0) {
                 usersInRoomMap.delete(roomCode);
                 currGameDataInRoomMap.delete(roomCode);
+            }
+            if (username === roomData.roomAdmin) {
+                io.in(roomCode).disconnectSockets(true);
             }
         }
     );
@@ -290,6 +299,52 @@ io.on("connection", (socket) => {
                         popup: true,
                     });
                 });
+            });
+        }
+    );
+
+    // kick
+    socket.on(
+        "kick-player",
+        ({
+            playerUsername,
+            username,
+            roomCode,
+        }: {
+            playerUsername: string;
+            username: string;
+            roomCode: string;
+        }) => {
+            const roomData = usersInRoomMap.get(roomCode);
+            if (!roomData) {
+                return socket.emit("error", {
+                    message: "Room does'nt exists!",
+                });
+            } else if (roomData.roomAdmin !== username) {
+                return socket.emit("error", {
+                    message: "Room admin can only kick!",
+                });
+            }
+
+            const id = roomData.players.filter((data) => {
+                if (data.username === playerUsername) {
+                    return data;
+                }
+            })[0].id;
+
+            roomData.players = roomData.players.filter(
+                (data) => data.username !== playerUsername
+            );
+
+            // todo -> what if curr denner lefts or if the player at the end of the players[] lefts?
+            io.to(roomCode).emit("kicked", { playerUsername }, () => {
+                io.to(id).emit(
+                    "error",
+                    { messsage: "Admin kicked you!" },
+                    () => {
+                        io.to(id).disconnectSockets();
+                    }
+                );
             });
         }
     );

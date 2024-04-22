@@ -13,7 +13,7 @@ const PlayersBox = () => {
     return (
         <div className="grid grid-cols-[2fr_6fr] gap-2">
             {/* curr player data */}
-            <div className="h-full flex flex-col items-center justify-center gap-4 border border-white p-2 rounded-md">
+            <div className="h-full flex flex-col items-center justify-center gap-4 border border-stone-400 p-2 rounded-md">
                 <span className="text-center flex justify-center items-center gap-2">
                     {roomDataState.turn !== undefined ? (
                         <>
@@ -40,7 +40,7 @@ const PlayersBox = () => {
             </div>
 
             {/* other players data */}
-            <div className="h-full grid grid-rows-[1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr] gap-1 p-1 border border-white rounded-md">
+            <div className="h-full grid grid-rows-[1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr] gap-1 p-1 border border-stone-400 rounded-md">
                 {roomDataState.players.map((player, index) => {
                     return (
                         <div

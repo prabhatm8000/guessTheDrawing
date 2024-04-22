@@ -26,7 +26,7 @@ const Lobby = () => {
     };
 
     return (
-        <div className="grid grid-rows-[2fr_1fr] gap-4 p-20 border border-white rounded-lg">
+        <div className="grid grid-rows-[2fr_1fr] gap-4 p-20 border border-stone-400 rounded-lg">
             {roomDataState ? (
                 <div className="grid grid-rows-[1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr] gap-1 p-1">
                     {roomDataState.players.map((data, index) => {
@@ -68,7 +68,7 @@ const Lobby = () => {
                         <span>Waiting for other players...</span>
                         {roomDataState?.roomAdmin === userState.username && (
                             <button
-                                className="text-2xl px-5 py-1 rounded-md border border-white hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200"
+                                className="text-2xl px-5 py-1 rounded-md border border-stone-400 hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200"
                                 onClick={handleStartBtn}
                                 style={{ lineHeight: "normal" }}
                             >
@@ -78,7 +78,7 @@ const Lobby = () => {
                     </>
                 ) : (
                     <button
-                        className="text-2xl px-5 py-1 rounded-md border border-white hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200"
+                        className="text-2xl px-5 py-1 rounded-md border border-stone-400 hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200 font-sketchit"
                         onClick={handleReadyBtn}
                         style={{ lineHeight: "normal" }}
                     >

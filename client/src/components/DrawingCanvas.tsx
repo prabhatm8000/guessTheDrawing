@@ -65,7 +65,7 @@ const DrawingCanvas = () => {
                 ref={canvasRef}
                 height={640}
                 width={800}
-                className="border border-white rounded-lg"
+                className="border border-stone-400 rounded-lg"
             />
 
             {showColorPicker && (
@@ -83,7 +83,7 @@ const DrawingCanvas = () => {
                     userState.username && (
                     <>
                         <button
-                            className={`absolute bottom-0 right-0 text-xl p-2 m-2 rounded-full border-2 border-white ${
+                            className={`absolute bottom-0 right-0 text-xl p-2 m-2 rounded-full border-2 border-stone-400 ${
                                 showColorPicker
                                     ? "bg-white text-black"
                                     : "bg-black text-white"
@@ -95,7 +95,7 @@ const DrawingCanvas = () => {
                         </button>
 
                         <button
-                            className="absolute bottom-0 px-2 py-1 m-2 rounded-md border border-white bg-white text-black text-sm font-semibold"
+                            className="absolute bottom-0 px-2 py-1 m-2 rounded-md border border-stone-400 bg-white text-black text-sm font-semibold"
                             type="button"
                             onClick={handleClearBtn}
                         >

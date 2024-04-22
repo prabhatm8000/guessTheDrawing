@@ -7,7 +7,7 @@ const Timer = () => {
     if (roomDataState?.gameStatus !== "GAME") {
         return (
             <div
-                className="flex justify-center items-center border border-white p-1 rounded-md font-mono"
+                className="flex justify-center items-center border border-stone-400 p-1 rounded-md font-mono"
                 id="timer"
             >
                 --:--
@@ -17,7 +17,7 @@ const Timer = () => {
 
     return (
         <div
-            className="flex justify-center items-center border border-white p-1 rounded-md font-mono"
+            className="flex justify-center items-center border border-stone-400 p-1 rounded-md font-mono"
             id="timer"
         ></div>
     );

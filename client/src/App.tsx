@@ -9,6 +9,7 @@ import Room from "./pages/Room";
 import JoinCreateRoom from "./pages/JoinCreateRoom";
 import Home from "./pages/Home";
 import { useWordContext } from "./hooks/useWordContext";
+import NavBar from "./components/NavBar";
 
 function App() {
     const { state: userState, dispatch: userDispatch } = useUserContext();
@@ -48,27 +49,33 @@ function App() {
     });
 
     return (
-        <>
-            <nav className=" p-3">
-                <div className="container m-auto px-2 w-[1400px] select-none">
-                    <span className="text-3xl">GuessTheDrawing</span>
-                </div>
-            </nav>
-            <div className="container m-auto p-2 w-[1400px] select-none h-[90v flex justify-center items-center">
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route
-                            path="/join-create-room"
-                            element={<JoinCreateRoom />}
-                        />
-                        <Route path="/room" element={<Room />} />
+        <div className="container m-auto px-2 w-[1400px] select-none flex justify-center items-center">
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                <NavBar />
+                                <Home />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/join-create-room"
+                        element={
+                            <>
+                                <NavBar />
+                                <JoinCreateRoom />
+                            </>
+                        }
+                    />
+                    <Route path="/room" element={<Room />} />
 
-                        <Route path="*" element={<Navigate to={"/"} />} />
-                    </Routes>
-                </BrowserRouter>
-            </div>
-        </>
+                    <Route path="*" element={<Navigate to={"/"} />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
     );
 }
 

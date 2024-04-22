@@ -1,9 +1,9 @@
-import ended from "../static/audio/ended.ogg";
-import guessed from "../static/audio/guessed.ogg";
-import join from "../static/audio/join.ogg";
-import leave from "../static/audio/leave.ogg";
-import started from "../static/audio/started.ogg";
-import tick from "../static/audio/tick.ogg";
+import ended from "../assets/audios/ended.ogg";
+import guessed from "../assets/audios/guessed.ogg";
+import join from "../assets/audios/join.ogg";
+import leave from "../assets/audios/leave.ogg";
+import started from "../assets/audios/started.ogg";
+import tick from "../assets/audios/tick.ogg";
 
 const audioObjRef = new Audio();
 

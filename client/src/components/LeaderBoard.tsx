@@ -26,9 +26,9 @@ const LeaderBoard = () => {
     };
 
     return (
-        <div className="p-10 border border-white rounded-lg grid grid-flow-row grid-rows-[10%_90%] justify-center items-start">
+        <div className="p-10 border border-stone-400 rounded-lg grid grid-flow-row grid-rows-[10%_90%] justify-center items-start">
             <button
-                className="text-2xl px-5 py-1 rounded-md border border-white hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200"
+                className="text-2xl px-5 py-1 rounded-md border border-stone-400 hover:text-white hover:bg-black focus:outline-none transition-all delay-75 duration-200 font-sketchit"
                 onClick={handlePlayAgainBtn}
                 style={{ lineHeight: "normal" }}
             >
