@@ -2,6 +2,8 @@
 
 guessTheDrawing is an online multiplayer game where players take turns guessing what another player is drawing. It's built with React, Socket.IO and Node.js.
 
+[UI sample](./uiPreview)
+
 ## Features
 
 -   Real-time multiplayer gameplay.
@@ -15,7 +17,7 @@ guessTheDrawing is an online multiplayer game where players take turns guessing 
 
 ### Frontend:
 
--   TypeScript: A statically typed superset of JavaScript that compiles to plain JavaScript.
+-   TypeScript: A statically typed superset of JavaScript that compiles to plain JavaScript.1
 -   React: A JavaScript library for building user interfaces.
 -   Socket.IO Client: A library that enables real-time, bidirectional and event-based communication between web clients and servers.
 -   Tailwind: CSS library
@@ -26,6 +28,13 @@ guessTheDrawing is an online multiplayer game where players take turns guessing 
 -   Node.js: A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.
 -   Socket.IO: Enables real-time, bidirectional and event-based communication between web clients and servers.
 -   Http server for sockets
+
+## Deployment
+
+Client deployed on vercel:
+[Click here](https://guessthedrawing.vercel.app/)
+
+Socket server deployed on render.
 
 ## Getting Started
 
@@ -74,7 +83,7 @@ cd frontend
 npm start
 ```
 
-6. Open your browser and navigate to http://localhost:3000 to play the game.
+6. Open your browser and navigate to http://localhost:5000 to play the game.
 
 Contributing
 Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests.
