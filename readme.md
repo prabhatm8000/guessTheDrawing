@@ -17,17 +17,16 @@ guessTheDrawing is an online multiplayer game where players take turns guessing 
 
 ### Frontend:
 
--   TypeScript: A statically typed superset of JavaScript that compiles to plain JavaScript.1
--   React: A JavaScript library for building user interfaces.
--   Socket.IO Client: A library that enables real-time, bidirectional and event-based communication between web clients and servers.
--   Tailwind: CSS library
+-   TypeScript
+-   React.js
+-   Socket.IO Client
+-   Tailwind
 
 ### Backend:
 
--   TypeScript: Used to write server-side code with type safety and modern JavaScript features.
--   Node.js: A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.
--   Socket.IO: Enables real-time, bidirectional and event-based communication between web clients and servers.
--   Http server for sockets
+-   TypeScript
+-   Node.js
+-   Socket.IO
 
 ## Deployment
 
