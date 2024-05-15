@@ -6,27 +6,27 @@ guessTheDrawing is an online multiplayer game where players take turns guessing 
 
 ## Features
 
--   Real-time multiplayer gameplay.
--   Simple and intuitive user interface.
--   Players can message/chat wich each other in real-time.
--   Messaging has swear-word bleeping.
--   Players take turns drawing and guessing.
--   Admin can kick player.
+-   Real-time multiplayer gameplay.
+-   Simple and intuitive user interface.
+-   Players can message/chat with each other in real time.
+-   Messaging has swear-word bleeping.
+-   Players take turns drawing and guessing.
+-   Admin can kick the player.
 
 ## Technologies Used
 
 ### Frontend:
 
--   TypeScript
--   React.js
--   Socket.IO Client
--   Tailwind
+-   TypeScript
+-   React.js
+-   Socket.IO Client
+-   Tailwind
 
 ### Backend:
 
--   TypeScript
--   Node.js
--   Socket.IO
+-   TypeScript
+-   Node.js
+-   Socket.IO
 
 ## Deployment
 
@@ -39,7 +39,7 @@ Socket server deployed on render.
 
 ### Prerequisites
 
--   Node.js and npm installed on your machine.
+-   Node.js and npm installed on your machine.
 
 ### Installation
 
@@ -66,12 +66,12 @@ npm install
 ```
 
 4. Running the Application
-   Start the backend server:
+   Start the backend server:
 
 ```bash
 
 cd backend
-npm start
+npm run start
 ```
 
 5. Start the frontend development server:
@@ -79,7 +79,7 @@ npm start
 ```bash
 
 cd frontend
-npm start
+npm run dev
 ```
 
 6. Open your browser and navigate to http://localhost:5000 to play the game.

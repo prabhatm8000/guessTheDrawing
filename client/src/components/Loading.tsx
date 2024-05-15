@@ -6,10 +6,9 @@ const Loading = () => {
             <ReactLoading color="#ddd" height={70} width={70} type="spin" />
             <div className="text-center text-sm flex flex-col">
                 <span>
-                    *Socket server deployed on render may go down, 'cause of no
-                    activity.
+                    *Socket server deployed on render may go down, 'cause of inactivity.
                 </span>
-                <span>*Please wait till it spins back up.</span>
+                <span>*Please wait till it spins back up or try again in few minutes.</span>
             </div>
         </div>
     );

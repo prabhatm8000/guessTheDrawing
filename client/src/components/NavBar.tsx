@@ -11,7 +11,7 @@ const NavBar = () => {
                     </span>
                     <img src="/icon.svg" alt="guessTheDrawing" className="size-[40px]" />
                 </Link>
-                <a href="/">
+                <a href="https://github.com/teleport-1254/guessTheDrawing">
                     <BiLogoGithub size={40} />
                 </a>
             </div>
