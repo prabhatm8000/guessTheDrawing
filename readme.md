@@ -40,7 +40,7 @@ Socket server deployed on render.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/guessTheDrawing.git
+git clone https://github.com/teleport-1254/guessTheDrawing
 ```
 
 2. Navigate to the project directory:
