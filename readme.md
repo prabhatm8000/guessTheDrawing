@@ -1,32 +1,32 @@
 # guessTheDrawing
 
-guessTheDrawing is an online multiplayer game where players take turns guessing what another player is drawing. It's built with React, Socket.IO and Node.js.
+[guessTheDrawing](https://guessthedrawing.vercel.app) is an online multiplayer game where players take turns guessing what another player is drawing. It's built with React, Socket.IO and Node.js.
 
 [UI sample](./uiPreview)
 
 ## Features
 
--   Real-time multiplayer gameplay.
--   Simple and intuitive user interface.
--   Players can message/chat with each other in real time.
--   Messaging has swear-word bleeping.
--   Players take turns drawing and guessing.
--   Admin can kick the player.
+-   Real-time multiplayer gameplay.
+-   Simple and intuitive user interface.
+-   Players can message/chat with each other in real time.
+-   Messaging has swear-word bleeping.
+-   Players take turns drawing and guessing.
+-   Admin can kick the player.
 
 ## Technologies Used
 
 ### Frontend:
 
--   TypeScript
--   React.js
--   Socket.IO Client
--   Tailwind
+-   TypeScript
+-   React.js
+-   Socket.IO Client
+-   Tailwind
 
 ### Backend:
 
--   TypeScript
--   Node.js
--   Socket.IO
+-   TypeScript
+-   Node.js
+-   Socket.IO
 
 ## Deployment
 
@@ -35,13 +35,7 @@ Client deployed on vercel:
 
 Socket server deployed on render.
 
-## Getting Started
-
-### Prerequisites
-
--   Node.js and npm installed on your machine.
-
-### Installation
+## Installation
 
 1. Clone the repository:
 
@@ -56,33 +50,29 @@ git clone https://github.com/your-username/guessTheDrawing.git
 cd guessTheDrawing
 ```
 
-3. Install dependencies for both frontend and backend:
+3. Install dependencies for both client and server:
 
 ```bash
-cd frontend
+cd client
 npm install
-cd ../backend
+cd ../server
 npm install
 ```
 
-4. Running the Application
-   Start the backend server:
+4. Run server:
 
 ```bash
 
-cd backend
-npm run start
+cd server
+npm run dev
 ```
 
-5. Start the frontend development server:
+5. Run client server:
 
 ```bash
 
-cd frontend
+cd client
 npm run dev
 ```
 
 6. Open your browser and navigate to http://localhost:5000 to play the game.
-
-Contributing
-Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests.
